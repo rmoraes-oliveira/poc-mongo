@@ -5,10 +5,15 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-
   # Defines the root path route ("/")
-  # root "posts#index"
+  root "dashboard#index"
+
+  # Dashboard routes
+  get '/dashboard', to: 'dashboard#index'
+  get '/dashboard/:manufacturer_id', to: 'dashboard#index', as: :dashboard_manufacturer
+  get '/api/regional-sales', to: 'dashboard#regional_sales'
+  get '/api/state-sales/:region', to: 'dashboard#state_sales'
+  get '/api/state-seasonality/:state', to: 'dashboard#state_seasonality'
+  get '/api/regional-seasonality/:region', to: 'dashboard#regional_seasonality'
+  get '/api/category-comparison/:manufacturer_id', to: 'dashboard#category_comparison'
 end
